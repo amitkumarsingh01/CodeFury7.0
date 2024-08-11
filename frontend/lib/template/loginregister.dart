@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'home_page.dart';
+import '../notification_service.dart'; // Import your notification service
 
 class LoginRegisterPage extends StatefulWidget {
+  final NotificationService notificationService; // Add this line
+
+  LoginRegisterPage({required this.notificationService}); // Update constructor
+
   @override
   _LoginRegisterPageState createState() => _LoginRegisterPageState();
 }
@@ -13,6 +18,12 @@ class _LoginRegisterPageState extends State<LoginRegisterPage> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _confirmPasswordController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    widget.notificationService.startPeriodicNotifications(); // Start notifications when page loads
+  }
 
   void toggleForm() {
     setState(() {
@@ -27,7 +38,9 @@ class _LoginRegisterPageState extends State<LoginRegisterPage> {
     if ((email == 'aksmlibts@gmail.com' || email == 'aksdsce@gmail.com') && password == '12345') {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => HomePage(email: email)),
+        MaterialPageRoute(
+          builder: (context) => HomePage(email: email, notificationService: widget.notificationService), // Pass notificationService here
+        ),
       );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(

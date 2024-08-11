@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/main/donate.dart';
 import 'package:frontend/pages/chatbot.dart';
 import 'package:frontend/pages/feature.dart';
 import 'package:frontend/pages/home.dart';
 import 'package:frontend/pages/map.dart';
 import 'profile_page.dart';
-
+import '../notification_service.dart'; // Import notification service
 
 class HomePage extends StatefulWidget {
   final String email;
+  final NotificationService notificationService; // Add this line
 
-  HomePage({required this.email});
+  HomePage({required this.email, required this.notificationService}); // Update constructor
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -17,19 +19,20 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _currentIndex = 0;
-  final List<Widget> _pages = [
-    HomeCorner(),
-    MapPage(),
-    Chatbot(),
-    Feature(),
-    ProfilePage(email: 'aksmlibts@gmail.com'), // Pass email here
-  ];
 
   @override
   Widget build(BuildContext context) {
+    final List<Widget> _pages = [
+      HomeCorner(),
+      WebPage(url: 'https://maps.app.goo.gl/NjDtq5Be4NBCLpi9A'),
+      DonatePage(),
+      Feature(),
+      ProfilePage(email: widget.email, notificationService: widget.notificationService), // Pass email and notificationService here
+    ];
+
     return Scaffold(
       appBar: AppBar(
-        title: Center(child: Text("Welcome to AKS World")),
+        title: Center(child: Text("Alert 360")),
         backgroundColor: Colors.black,
       ),
       body: _pages[_currentIndex],
@@ -50,12 +53,23 @@ class _HomePageState extends State<HomePage> {
             label: "Map",
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.chat, color: Colors.white),
-            label: "Chatbot",
+            icon: Container(
+              height: 75,
+              width: 250,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.white,
+              ),
+              child: Icon(
+                Icons.chat,
+                color: Colors.black,
+              ),
+            ),
+            label: "Support",
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.contact_page, color: Colors.white),
-            label: "Contact",
+            label: "Status",
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person, color: Colors.white),

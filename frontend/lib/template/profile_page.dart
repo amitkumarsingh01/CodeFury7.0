@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'loginregister.dart';
+import '../notification_service.dart'; // Import the notification service
 
 class ProfilePage extends StatelessWidget {
   final String email;
+  final NotificationService notificationService; // Add this line
 
-  ProfilePage({required this.email});
+  ProfilePage({required this.email, required this.notificationService}); // Update constructor
 
   @override
   Widget build(BuildContext context) {
@@ -38,12 +40,13 @@ class ProfilePage extends StatelessWidget {
                   Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => LoginRegisterPage()),
-                    (Route<dynamic> route) => false,
+                        builder: (context) => LoginRegisterPage(notificationService: notificationService)),
+                        (Route<dynamic> route) => false,
                   );
                 },
                 style: ElevatedButton.styleFrom(
-                  foregroundColor: Colors.white, backgroundColor: Colors.black, // white text
+                  foregroundColor: Colors.white,
+                  backgroundColor: Colors.black, // white text
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30), // Rounded corners
                   ),
