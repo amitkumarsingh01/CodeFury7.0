@@ -14,7 +14,7 @@ class NotificationService {
   }
 
   void startPeriodicNotifications() {
-    Timer.periodic(Duration(seconds: 50000000), (Timer timer) {
+    Timer.periodic(Duration(seconds: 10000000), (Timer timer) {
       _flutterLocalNotificationsPlugin.show(
         0,
         'Hey!',

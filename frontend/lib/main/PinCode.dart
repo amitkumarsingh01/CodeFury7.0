@@ -86,9 +86,11 @@ class _PincodePageState extends State<PincodePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Pincode Location Finder'),
+        title: Text('Pincode Risk Finder'),
+        backgroundColor: Colors.black,
       ),
-      body: Padding(
+      body: Container(
+        color: Colors.black,
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -98,20 +100,34 @@ class _PincodePageState extends State<PincodePage> {
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
                 labelText: 'Enter Pincode',
+                labelStyle: TextStyle(color: Colors.white),
                 border: OutlineInputBorder(),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white),
+                ),
               ),
+              style: TextStyle(color: Colors.white),
             ),
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: _fetchLocation,
-              child: Text('Get Location'),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.grey[800], // Replaces 'primary'
+              ),
+              child: Text(
+                'Get Location',
+                style: TextStyle(color: Colors.white),
+              ),
             ),
             SizedBox(height: 20),
-            Text('Latitude: $_latitude'),
-            Text('Longitude: $_longitude'),
+            Text('Latitude: $_latitude', style: TextStyle(color: Colors.white)),
+            Text('Longitude: $_longitude', style: TextStyle(color: Colors.white)),
             SizedBox(height: 20),
-            Text('Disaster Information:'),
-            Text(_disasterInfo),
+            Text('Disaster Information:', style: TextStyle(color: Colors.white)),
+            Text(_disasterInfo, style: TextStyle(color: Colors.white)),
           ],
         ),
       ),
